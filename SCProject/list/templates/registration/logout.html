@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your List</title>
+</head>
+<body>
+    <!-- Logout link -->
+    <p><a href="{% url 'logout' %}">Logout</a></p>
+
+    <h1>Your List</h1>
+    <ul>
+        {% for item in items %}
+            <li>{{ item.item_text }}
+                <a href="{% url 'delete_item' item.id %}">Delete</a>
+            </li>
+        {% empty %}
+            <li>No items yet.</li>
+        {% endfor %}
+    </ul>
+
+    <form method="POST" action="{% url 'add_item' %}">
+        {% csrf_token %}
+        <input type="text" name="item_text" placeholder="Add new item" required>
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

@@ -12,7 +12,9 @@
         <button type="submit">Logout</button>
     </form>
 
-    <h1>Your List</h1>
+    <!-- Display name of user -->
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p>Your List</p>
 
     <!-- Add new item form -->
     <form method="POST" action="{% url 'add_item' %}">

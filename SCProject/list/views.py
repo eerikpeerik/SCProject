@@ -16,18 +16,14 @@ def add_item(request):
         """
         cursor.executescript(sql)
 
-        return redirect('list')
-
-    return render(request, 'list')
-
-
-# @login_required
-# def add_item(request):
+#   FIX: By using Django's standard method, we can prevent SQL injections.
 #     if request.method == 'POST':
 #         item_text = request.POST.get('item_text')
 #         ListItem.objects.create(user=request.user, item_text=item_text)
-#         return redirect('list')
-#     return render(request, 'list')
+
+        return redirect('list')
+
+    return render(request, 'list')
 
 
 @login_required
@@ -45,4 +41,4 @@ def delete_item(request, item_id):
 @login_required
 def list_view(request):
     items = ListItem.objects.filter(user=request.user)
-    return render(request, 'list/list.html', {'items': items})
+    return render(request, 'list/list.html', {'items': items, 'user': request.user})

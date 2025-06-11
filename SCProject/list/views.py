@@ -16,9 +16,7 @@ def add_item(request):
         """
         cursor.executescript(sql)
 
-#   FIX: By using Django's standard method, we can prevent SQL injections.
-#     if request.method == 'POST':
-#         item_text = request.POST.get('item_text')
+#         FIX: By using Django's standard method, we can prevent SQL injections.
 #         ListItem.objects.create(user=request.user, item_text=item_text)
 
         return redirect('list')

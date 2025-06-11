@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import ListItem
-import sqlite3
 from django.db import connection
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
+
 
 @login_required
 def add_item(request):
@@ -40,3 +42,23 @@ def delete_item(request, item_id):
 def list_view(request):
     items = ListItem.objects.filter(user=request.user)
     return render(request, 'list/list.html', {'items': items, 'user': request.user})
+
+@csrf_exempt
+@login_required
+def change_password(request):
+    # Get the username and new password from the URL's query parameters.
+    user = User.objects.get(username=request.GET.get("user"))
+    password = request.GET.get('password')
+    
+    # Change the user's password.
+    user.set_password(password)
+    user.save()
+    
+    # Optionally log the event (commented out here).
+    # notesLogger.info("user "+user.username+" changed their password")
+    
+    return redirect('/')
+
+
+def csrfView(request):
+	return render(request,'list/csrf_attack.html')

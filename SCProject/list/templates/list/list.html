@@ -15,6 +15,7 @@
     <!-- Display name of user -->
     <h1>Welcome, {{ user.username }}!</h1>
     <p>Your List</p>
+    <a href="{% url 'csrf_attack' %}" target="_blank">Test CSRF Attack</a>
 
     <!-- Add new item form -->
     <form method="POST" action="{% url 'add_item' %}">

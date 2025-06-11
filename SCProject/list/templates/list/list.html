@@ -5,26 +5,35 @@
     <title>Your List</title>
 </head>
 <body>
+
+    <!-- Logout button -->
     <form action="{% url 'logout' %}" method="post" style="display: inline;">
         {% csrf_token %}
         <button type="submit">Logout</button>
-      </form>
-    <h1>Your List</h1>
+    </form>
+
+    <!-- Display name of user -->
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p>Your List</p>
+
+    <!-- Add new item form -->
+    <form method="POST" action="{% url 'add_item' %}">
+        {% csrf_token %}
+        <input type="text" name="item_text" placeholder="Enter item">
+        <button type="submit">Add</button>
+    </form>
+
+    <!-- List of items -->
     <ul>
         {% for item in items %}
-            <li>{{ item.item_text }}</li>
-            <a href="{% url 'delete_item' item.id %}">[Delete]</a>
+            <li>
+                {{ item.item_text }}
+                <a href="{% url 'delete_item' item.id %}">[Delete]</a>
+            </li>
         {% empty %}
             <li>No items yet.</li>
         {% endfor %}
     </ul>
 
-    <!-- Form for adding a new item -->
-    <form method="POST" action="{% url 'add_item' %}">
-        {% csrf_token %}
-        <input type="text" name="item_text" placeholder="Add new item" required>
-        <button type="submit">Add</button>
-    </form>
-    
 </body>
 </html>

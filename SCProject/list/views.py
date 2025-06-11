@@ -5,30 +5,23 @@ import sqlite3
 from django.db import connection
 
 @login_required
-def list_view(request):
-    items = ListItem.objects.filter(user=request.user)
-    return render(request, 'list/list.html', {'items': items})
-
-@login_required
 def add_item(request):
     if request.method == 'POST':
         item_text = request.POST.get('item_text')
-        # Vulnerable raw SQL: directly linking user input into the query
         cursor = connection.cursor()
-        sql = "INSERT INTO list_listitem (item_text, user_id) VALUES ('" + item_text + "', " + str(request.user.id) + ")"
-        cursor.execute(sql)
-        return redirect('list')
-    return render(request, 'list/add_item.html')
 
-# @login_required
-# def add_item(request):
-#    if request.method == 'POST':
-#        item_text = request.POST.get('item_text')
-#        if item_text:  # Ensure that the text is not empty
-#            ListItem.objects.create(user=request.user, item_text=item_text)
-#        return redirect('list')  # Redirect back to the list view
-#    # Alternatively, if someone sends a GET request, you could render another template.
-#    return render(request, 'list/add_item.html')s
+        sql = f"""
+        INSERT INTO list_listitem (user_id, item_text)
+        VALUES ({request.user.id}, '{item_text}');
+        """
+        cursor.executescript(sql)
+
+#         FIX: By using Django's standard method, we can prevent SQL injections.
+#         ListItem.objects.create(user=request.user, item_text=item_text)
+
+        return redirect('list')
+
+    return render(request, 'list')
 
 
 @login_required
@@ -42,3 +35,8 @@ def delete_item(request, item_id):
     
     # For GET requests, render a confirmation page
     return render(request, 'list/confirm_delete.html', {'item': item})
+
+@login_required
+def list_view(request):
+    items = ListItem.objects.filter(user=request.user)
+    return render(request, 'list/list.html', {'items': items, 'user': request.user})

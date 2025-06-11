@@ -1,9 +1,18 @@
-# Vulnerable List Application  
-Cyber Security Base 2025 - Project 1  
+# Cyber Security Base 2025 Course Project 1
+This project is using the OWASP 2021 [top ten list](https://owasp.org/www-project-top-ten/) and CSRF
 
-## **Description**  
-This project is a simple **list application** where users can log in, add items to their personal list, and delete items. The application is intentionally designed with **security flaws** based on the **OWASP Top Ten 2021** list.  
+To run the project, install the [required dependencies](https://cybersecuritybase.mooc.fi/installation-guide) used in the course, clone the repository, and run the command:
 
-The goal of this project is to **identify and fix** at least five security vulnerabilities. Each vulnerability is present in the code, with a **commented-out fix** included.  
+```
+python manage.py runserver
+```
+The website can be found at http://127.0.0.1:8000/ once the server is up and running
 
----
+The website has a superuser, with username superuser and password superuser
+
+However, there are also default users:
+   | Username | Password |
+   |:--------:|:--------:|
+   | admin    | admin |
+   | bob   | thebuilder |
+   | alice | inwonderland |

@@ -4,7 +4,8 @@ from .models import ListItem
 from django.db import connection
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
-
+from django.contrib.auth import authenticate, login
+from django.contrib import messages 
 
 @login_required
 def add_item(request):
@@ -28,14 +29,13 @@ def add_item(request):
 
 @login_required
 def delete_item(request, item_id):
-    # Ensure that the logged-in user is the owner of the item
+    
     item = get_object_or_404(ListItem, id=item_id, user=request.user)
     
     if request.method == 'POST':
         item.delete()
         return redirect('list')
     
-    # For GET requests, render a confirmation page
     return render(request, 'list/confirm_delete.html', {'item': item})
 
 @login_required
@@ -46,16 +46,12 @@ def list_view(request):
 @csrf_exempt
 @login_required
 def change_password(request):
-    # Get the username and new password from the URL's query parameters.
+
     user = User.objects.get(username=request.GET.get("user"))
     password = request.GET.get('password')
     
-    # Change the user's password.
     user.set_password(password)
     user.save()
-    
-    # Optionally log the event (commented out here).
-    # notesLogger.info("user "+user.username+" changed their password")
     
     return redirect('/')
 

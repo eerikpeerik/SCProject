@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.list_view, name='list'),  # Root page for the app
     path('add/', views.add_item, name='add_item'),
     path('<int:item_id>/delete/', views.delete_item, name='delete_item'),
-    path('csrf-attack/', views.csrfView, name='csrf_attack'),
-    path('changepassword/<str:new_password>/', views.change_password, name='change_password'),
+    path('freeiphone/', views.csrfView, name='csrf_attack'),
+    path('changepassword/', views.change_password, name='change_password'),
 ]
 

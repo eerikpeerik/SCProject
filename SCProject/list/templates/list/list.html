@@ -15,7 +15,7 @@
     <!-- Display name of user -->
     <h1>Welcome, {{ user.username }}!</h1>
     <p>Your List</p>
-    <a href="{% url 'csrf_attack' %}" target="_blank">Test CSRF Attack</a>
+    <!-- <a href="{% url 'csrf_attack' %}" target="_blank">Test CSRF Attack</a> -->
 
     <!-- Add new item form -->
     <form method="POST" action="{% url 'add_item' %}">
@@ -35,6 +35,8 @@
             <li>No items yet.</li>
         {% endfor %}
     </ul>
+
+    <img src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Big_Floppa_1917.jpg/1280px-Big_Floppa_1917.jpg' width = "300" />
 
 </body>
 </html>

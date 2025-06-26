@@ -43,12 +43,15 @@ def list_view(request):
     items = ListItem.objects.filter(user=request.user)
     return render(request, 'list/list.html', {'items': items, 'user': request.user})
 
-@csrf_exempt
+    # Remove @crsf_exempt to enable CSRF protection
 @login_required
 def change_password(request):
 
-    user = User.objects.get(username=request.GET.get("user"))
-    password = request.GET.get('password')
+    #user = User.objects.get(username=request.GET.get("user"))
+    #password = request.GET.get('password')
+
+    user = User.objects.get(username=request.POST.get("user"))
+    password = request.POST.get('password')
     
     user.set_password(password)
     user.save()

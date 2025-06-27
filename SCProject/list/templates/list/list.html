@@ -14,7 +14,17 @@
 
     <!-- Display name of user -->
     <h1>Welcome, {{ user.username }}!</h1>
+
+    <h2>Change password:</h2>
+    <form action='changepassword/' method="POST"> <!-- Change GET to POST-->
+    <!--{Add in: "{% csrf_token %}"}-->
+    {% csrf_token %}
+        <input type="hidden" name="user" value="{{user.username}}" />
+        <input type="password" placeholder="New Password" name="password" />
+        <input type="submit" value="Submit" />
+    </form>
     <p>Your List</p>
+    
 
     <!-- Add new item form -->
     <form method="POST" action="{% url 'add_item' %}">
@@ -34,6 +44,8 @@
             <li>No items yet.</li>
         {% endfor %}
     </ul>
+
+    <img src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Big_Floppa_1917.jpg/1280px-Big_Floppa_1917.jpg' width = "300" />
 
 </body>
 </html>

@@ -7,3 +7,21 @@ ENV/
 env.bak/ 
 venv.bak/ 
 .DS_Store
+
+# Django migrations
+**/migrations/*.py
+!**/migrations/__init__.py
+
+# Compiled Python files
+**/__pycache__/
+*.pyc
+
+# Static files
+staticfiles/
+
+# Media files (if applicable)
+media/
+
+# IDE-specific files
+.vscode/
+.idea/

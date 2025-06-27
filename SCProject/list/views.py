@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import ListItem
-import sqlite3
 from django.db import connection
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib import messages 
 
 @login_required
 def add_item(request):
@@ -26,17 +29,35 @@ def add_item(request):
 
 @login_required
 def delete_item(request, item_id):
-    # Ensure that the logged-in user is the owner of the item
+    
     item = get_object_or_404(ListItem, id=item_id, user=request.user)
     
     if request.method == 'POST':
         item.delete()
         return redirect('list')
     
-    # For GET requests, render a confirmation page
     return render(request, 'list/confirm_delete.html', {'item': item})
 
 @login_required
 def list_view(request):
     items = ListItem.objects.filter(user=request.user)
     return render(request, 'list/list.html', {'items': items, 'user': request.user})
+
+    # Remove @crsf_exempt to enable CSRF protection
+@login_required
+def change_password(request):
+
+    #user = User.objects.get(username=request.GET.get("user"))
+    #password = request.GET.get('password')
+
+    user = User.objects.get(username=request.POST.get("user"))
+    password = request.POST.get('password')
+    
+    user.set_password(password)
+    user.save()
+    
+    return redirect('/')
+
+
+def csrfView(request):
+	return render(request,'list/csrf_attack.html')

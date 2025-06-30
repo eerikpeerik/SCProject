@@ -16,9 +16,8 @@
     <h1>Welcome, {{ user.username }}!</h1>
 
     <h2>Change password:</h2>
-    <form action='changepassword/' method="POST"> <!-- Change GET to POST-->
+    <form action='changepassword/' method="GET"> <!-- Change GET to POST-->
     <!--{Add in: "{% csrf_token %}"}-->
-    {% csrf_token %}
         <input type="hidden" name="user" value="{{user.username}}" />
         <input type="password" placeholder="New Password" name="password" />
         <input type="submit" value="Submit" />

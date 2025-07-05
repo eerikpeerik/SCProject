@@ -43,18 +43,26 @@ def list_view(request):
     items = ListItem.objects.filter(user=request.user)
     return render(request, 'list/list.html', {'items': items, 'user': request.user})
 
-    # Remove @crsf_exempt to enable CSRF protection
-@login_required
+    
+@csrf_exempt # Remove @crsf_exempt to enable CSRF protection
+    # Add in @login_required to provent Broken Access Control
 def change_password(request):
 
-    #user = User.objects.get(username=request.GET.get("user"))
-    #password = request.GET.get('password')
+    # Add in this to fix BAC
+    #user = request.user
 
-    user = User.objects.get(username=request.POST.get("user"))
-    password = request.POST.get('password')
+    # Comment out these two snippets of code to remove vulnerability to CSRF
+    user = User.objects.get(username=request.GET.get("user"))
+    password = request.GET.get('password')
+
+    # Add these two snippets of code back in to protect against CSRF.
+    #user = User.objects.get(username=request.POST.get("user"))
+    #password = request.POST.get('password')
     
-    user.set_password(password)
-    user.save()
+    # Checks if the password contains any character -> Prevents the password from being empty
+    if (password):
+        user.set_password(password)
+        user.save()
     
     return redirect('/')
 

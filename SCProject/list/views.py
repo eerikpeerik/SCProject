@@ -7,6 +7,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages 
 
+#   Logging needed!!!
+#import logging
+#listLogger = logging.getLogger("list_logger")
+#passwordlogger = logging.getLogger("password_logger")
+
 @login_required
 def add_item(request):
     if request.method == 'POST':
@@ -21,6 +26,8 @@ def add_item(request):
 
 #         FIX: By using Django's standard method, we can prevent SQL injections.
 #         ListItem.objects.create(user=request.user, item_text=item_text)
+
+        #listLogger.info("New item added to list: " + item_text)
 
         return redirect('list')
 
@@ -63,7 +70,7 @@ def change_password(request):
     if (password):
         user.set_password(password)
         user.save()
-    
+    #listLogger.info("user " + user.username + " has changed their password.")
     return redirect('/')
 
 

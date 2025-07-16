@@ -58,13 +58,9 @@ def change_password(request):
     # Add in this to fix BAC
     #user = request.user
 
-    # Comment out these two snippets of code to remove vulnerability to CSRF
+    # Change "GET" to "POST" to remove vulnerability to CSRF
     user = User.objects.get(username=request.GET.get("user"))
     password = request.GET.get('password')
-
-    # Add these two snippets of code back in to protect against CSRF.
-    #user = User.objects.get(username=request.POST.get("user"))
-    #password = request.POST.get('password')
     
     # Checks if the password contains any character -> Prevents the password from being empty
     if (password):

@@ -1,5 +1,6 @@
-# Environments 
-
+# Environments
+# Add in .env 
+#.env
 .venv 
 env/ 
 venv/ 

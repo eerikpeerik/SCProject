@@ -133,7 +133,7 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-#logging needed
+#missing logging
 """
 LOGGING = {
     "version": 1,

@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages 
 
-#   Logging needed!!!
+#   Implement logging, please!
 #import logging
 #listLogger = logging.getLogger("list_logger")
 #passwordlogger = logging.getLogger("password_logger")

@@ -18,6 +18,7 @@ However, there are also default users:
    | alice | inwonderland |
 
 ## FLAW 1: [SQL Injection](https://owasp.org/Top10/A03_2021-Injection/)
+Pin-pointed out the flaw ->
 https://github.com/eerikpeerik/SCProject/blob/faecd5e4b5b8d7dbd9d64074e7ff3c26c5e0d866/SCProject/list/views.py#L21-L24
 An SQL injection is when a user injects malicious data into an unsafe and/or poorly written input field. The data entered in the input field contains an SQL query which alters the existing database. Depending on the SQL query, the user can modify, delete or even drop complete data tables. They might even find out other users’ passwords. How this site processes user added items is through an SQL query INSERT INTO, which is not properly set up. Any malicious user can use this input field to alter the existing database.
 
@@ -48,6 +49,8 @@ After 2: This time, it becomes added to the list instead of being compiled as an
 After 3: Thanks to the vulnerability patch, Alice’s list remains untouched.
 
 ## FLAW 2: [CSRF](https://cybersecuritybase.mooc.fi/module-2.3/1-security)
+Pin-pointed out the flaw ->
+
 Missing CSRF token:
 https://github.com/eerikpeerik/SCProject/blob/f4257178d0557540220e5c80201d78f04c5d2bc3/SCProject/list/templates/list/list.html#L20
 
@@ -87,6 +90,8 @@ After 1: After the vulnerability has been fixed and Bob has recovered his accoun
 After 2: Bob successfully enters his personal list without any harm. The vulnerability is patched.
 
 ## FLAW 3: [Broken Access Control](https://owasp.org/Top10/A01_2021-Broken_Access_Control/)
+Pin-pointed out the flaw ->
+
 Password changing handled with GET method: https://github.com/eerikpeerik/SCProject/blob/faecd5e4b5b8d7dbd9d64074e7ff3c26c5e0d866/SCProject/list/views.py#L62-L63
 Missing @login_required: https://github.com/eerikpeerik/SCProject/blob/faecd5e4b5b8d7dbd9d64074e7ff3c26c5e0d866/SCProject/list/views.py#L55
 
@@ -106,6 +111,8 @@ Before 2: After the malicious user has hit ENTER, they are redirected back to th
 After 1: After the malicious user has hit ENTER, instead of being redirected back to the login page, they are instead met with a 404 error as the website no longer changes passwords with GET methods.
 
 ## FLAW 4: [Logging](https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/)
+Pin-pointed out the flaw ->
+
 No logging implemented: https://github.com/eerikpeerik/SCProject/blob/65ce5b984e75b4777c3c435b778b180178b03602/SCProject/SCProject/settings.py#L136
 
 Logging is needed so that admins can see what activity is going on the website. For example, the admin needs to know when a password has been updated and without proper logging, they are left in the dark. It is important for the admin to know what’s going on in case an attacker change’s another user’s password.
@@ -124,6 +131,8 @@ After 1: Now there is a clear log saying that Bob has changed their password.
 
 After 2: In addition, new items are now also added to log so admins can see if any suspicious links or data is stored or if anyone tries to do an SQL injection.
 ## FLAW 5: [Security misconfiguration](https://owasp.org/Top10/A05_2021-Security_Misconfiguration/)
+Pin-pointed out the flaw ->
+
 The SECRET_KEY is visible to everyone: https://github.com/eerikpeerik/SCProject/blob/65ce5b984e75b4777c3c435b778b180178b03602/SCProject/SCProject/settings.py#L28
 DEBUG is left on True: https://github.com/eerikpeerik/SCProject/blob/65ce5b984e75b4777c3c435b778b180178b03602/SCProject/SCProject/settings.py#L31
 Security misconfiguration is when developers have overseen crucial configurations or left in errors. Security might not have been taken into consideration during configuration during set-up. This can lead to a vulnerable application, like this project, which opens the doors for hackers to access the project and its data and code more easily. 

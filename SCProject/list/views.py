@@ -52,16 +52,15 @@ def list_view(request):
 
     
 @csrf_exempt # Remove @crsf_exempt to enable CSRF protection
-    # Add in @login_required to provent Broken Access Control (BAC)
+    # Add in @login_required for when GET is changed to POST.
 def change_password(request):
 
-    # Add in this to fix BAC
-    #user = request.user
+    # Add in this to ensure the user is taken from the current session (Flaw 3).
+    # user = request.user
 
-    # Change "GET" to "POST" to remove vulnerability to CSRF and BAC
+    # Change "GET" to "POST" to remove vulnerability to CSRF
     user = User.objects.get(username=request.GET.get("user"))
     password = request.GET.get('password')
-
     #user = User.objects.get(username=request.POST.get("user"))
     #password = request.POST.get('password')
     
